@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Modern Dark</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root { 
+            --bg-color: #1a1d24; 
+            --text-color: #e0e0e0;
+            --text-secondary-color: #a0a0a0;
+            --accent-color: #2ecc71; 
+            --accent-hover-color: #27ae60;
+            --card-bg: #2c313a; 
+            --border-color: #3e4450;
+            --header-bg: rgba(26, 29, 36, 0.85); 
+            --shadow-color: rgba(0, 0, 0, 0.25);
+            --shadow-strong-color: rgba(0, 0, 0, 0.4);
+            --icon-filter: invert(100%); 
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; 
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--text-color);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.25s ease-out, transform 0.25s ease-out, box-shadow 0.25s ease-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .button:hover {
+            background-color: var(--accent-hover-color);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px var(--shadow-strong-color);
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 0;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(15px) saturate(150%);
+            -webkit-backdrop-filter: blur(15px) saturate(150%);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .nav-right-cluster {
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-secondary-color);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 3px;
+            right: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+            -webkit-transition: width 0.3s ease;
+        }
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+            left: 0;
+            background: var(--accent-color);
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--accent-color);
+        }
+        
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1005;
+        }
+        .hamburger-menu .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-color);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #hero {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            text-align: center;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg-color) 60%, var(--card-bg) 100%);
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: var(--text-color);
+            letter-spacing: -1px;
+        }
+        #hero h1 .highlight {
+            color: var(--accent-color);
+        }
+
+        #hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 40px;
+            max-width: 750px;
+            font-weight: 300;
+        }
+
+        .profile-image-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: var(--card-bg);
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
+            margin: 0 auto 40px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary-color);
+            box-shadow: 0 10px 30px var(--shadow-strong-color);
+            overflow: hidden;
+        }
+        .profile-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #about .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        #about .about-content {
+            flex: 1.5;
+        }
+        #about .section-title { text-align: left; margin-left: 0; }
+        #about .section-title::after { margin: 15px 0 0; }
+
+        #about .about-image-placeholder {
+            flex: 1;
+            height: 350px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-secondary-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            overflow: hidden;
+        }
+         #about .about-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #about p {
+            font-size: 1.05rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 25px;
+        }
+
+        .projects-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 35px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 18px 45px var(--shadow-strong-color);
+            border-color: var(--accent-color);
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 220px;
+            background-color: var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary-color);
+            overflow: hidden;
+        }
+         .project-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary-color);
+            flex-grow: 1;
+            margin-bottom: 25px;
+        }
+
+        .project-card .button {
+            align-self: flex-start;
+            padding: 10px 22px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px; 
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px var(--shadow-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none; 
+        }
+        .link-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px var(--shadow-strong-color);
+            border-color: var(--accent-color);
+        }
+        .link-card svg { 
+            width: 40px;
+            height: 40px;
+            fill: var(--accent-color); 
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .link-card:hover svg {
+            transform: scale(1.1);
+        }
+        .link-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        .link-card p { 
+            font-size: 0.9rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 0;
+        }
+        .link-card .link-button {
+            margin-top: 15px;
+            display: inline-block;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border: 1px solid var(--accent-color);
+            border-radius: 20px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .link-card .link-button:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 30px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+        }
+        .faq-item details {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .faq-item details[open] {
+            border-color: var(--accent-color);
+        }
+        .faq-item summary {
+            padding: 18px 22px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            cursor: pointer;
+            list-style: none; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .faq-item summary:hover {
+            color: var(--accent-color);
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::marker { display: none; }
+        .faq-item summary::after { 
+            content: '+';
+            font-size: 1.6rem;
+            font-weight: 300; 
+            line-height: 1;
+            transition: transform 0.25s ease-out;
+            color: var(--text-secondary-color);
+        }
+        .faq-item details[open] summary::after {
+            transform: rotate(45deg);
+            color: var(--accent-color);
+        }
+        .faq-item .faq-answer {
+            padding: 0 22px 20px 22px;
+            color: var(--text-secondary-color);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+
+        #contact p.intro-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 30%, transparent);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .contact-form .button {
+            align-self: center;
+            min-width: 200px;
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary-color);
+            transition: border-color 0.3s ease;
+            background-color: var(--card-bg);
+        }
+        .main-footer p {
+            font-size: 0.9rem;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .projects-grid .project-card.animate-on-scroll.is-visible:nth-child(3n+1) { transition-delay: 0.1s; }
+        .projects-grid .project-card.animate-on-scroll.is-visible:nth-child(3n+2) { transition-delay: 0.2s; }
+        .projects-grid .project-card.animate-on-scroll.is-visible:nth-child(3n)   { transition-delay: 0.3s; }
+        
+        .link-card:nth-child(1).animate-on-scroll.is-visible { transition-delay: 0.1s; }
+        .link-card:nth-child(2).animate-on-scroll.is-visible { transition-delay: 0.2s; }
+        .link-card:nth-child(3).animate-on-scroll.is-visible { transition-delay: 0.3s; }
+        .faq-item:nth-child(1).animate-on-scroll.is-visible { transition-delay: 0.1s; }
+        .faq-item:nth-child(2).animate-on-scroll.is-visible { transition-delay: 0.2s; }
+        .faq-item:nth-child(3).animate-on-scroll.is-visible { transition-delay: 0.3s; }
+
+
+        @media (max-width: 992px) { 
+            .section-title {
+                font-size: 2.2rem;
+            }
+            #hero h1 {
+                font-size: 3rem;
+            }
+            #hero .subtitle {
+                font-size: 1.2rem;
+            }
+            .profile-image-placeholder {
+                width: 180px;
+                height: 180px;
+            }
+            #about .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about .section-title { text-align: center; margin-left: auto; margin-right: auto; }
+            #about .section-title::after { margin: 15px auto 0; } 
+            #about .about-image-placeholder {
+                height: 300px;
+                margin-top: 40px;
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            html { font-size: 15px; }
+            .section { padding: 80px 0; }
+            .section-title { font-size: 2rem; }
+
+            #hero { padding-top: 140px; padding-bottom: 80px; min-height: 80vh;}
+            #hero h1 { font-size: 2.5rem; }
+            #hero .subtitle { font-size: 1.1rem; }
+            .profile-image-placeholder {
+                width: 150px;
+                height: 150px;
+            }
+
+            .main-nav {
+                position: fixed;
+                top: 0;
+                left: -100%; 
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--card-bg); 
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+                transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                z-index: 999; 
+                border-right: 1px solid var(--border-color);
+            }
+            .main-nav.is-active {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+            .main-nav li {
+                margin-left: 0;
+                margin-bottom: 25px;
+                width: 100%;
+            }
+            .main-nav a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+                display: block;
+            }
+             .main-nav a::after {
+                right: auto; left:0;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+            .hamburger-menu.is-active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger-menu.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger-menu.is-active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            body.mobile-nav-active {
+                overflow-y: hidden;
+            }
+
+            .projects-grid, .links-grid { 
+                gap: 30px;
+            }
+            .project-card, .link-card { padding: 25px; } 
+            .project-image-placeholder { height: 200px; }
+
+            .contact-form { gap: 20px; }
+            .contact-form input, .contact-form textarea { padding: 15px; }
+
+            .faq-item summary { padding: 15px 18px; font-size: 1rem; }
+            .faq-item .faq-answer { padding: 0 18px 15px 18px; font-size: 0.9rem;}
+
+        }
+
+        @media (max-width: 480px) { 
+             html { font-size: 14px; }
+            .container { padding: 0 15px; }
+            #hero { padding-top: 120px; }
+            #hero h1 { font-size: 2.1rem; }
+            #hero .subtitle { font-size: 1rem; }
+            .profile-image-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+            .button {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#hero" class="logo">Yashika Dhingra.</a>
+            <div class="nav-right-cluster">
+                <nav class="main-nav" id="mainNav">
+                    <ul>
+                        <li><a href="#hero" class="active">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#links">Links</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                 <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container animate-on-scroll">
+                <div class="profile-image-placeholder">
+                   <img src="profile.png" alt="Your Name"> 
+                </div>
+                <h1>Hello, I'm <span class="highlight">Yashika Dhingra</span></h1>
+                <p class="subtitle">A dedicated stalker, extrovert, autistic, manipulator, music lover, self obssessed, overreative person.</p>
+                <a href="#projects" class="button">More About me</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-content animate-on-scroll">
+                    <h2 class="section-title">About Me</h2>
+                    <p>My name is Yashika Dhingra. I live in Ranjit Avenue Phase-2. My father's name is Sahil Dhingra. My mother's name is Ramandeep Kaur. I am a student Of IX Jasmine in BCM School, Basant Avenue, Dugri, Ludhiana. My phone number is +91 6284690764. My Sim card is of Jio reliance. I love listening to music on spotify. I joined BCM school on 20 Apr 2025. Before coming to This school I studied in Indus World School. I lived in Rajgarh estates but now i have shifted. My Parents are a bit strict. I have used a Samsung Flip 5, Iphone 13 Pro. I have a Hp Chromebook and Noise air max 5 headphones. I have gotten 3 Proposals even though I have joined recently. </p>
+                    <a href="#contact" class="button">Let's Talk</a>
+                </div>
+                <div class="about-image-placeholder animate-on-scroll" style="transition-delay: 0.2s;">
+                     <img src="image.png" alt="Me working or a hobby photo">
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                            <img src="image.png" alt="Project Alpha">
+                        </div>
+                        <h3>Close Up of My Eye</h3>
+                        <p>I Love to take fisheye prespective shots of my eyes. I also take Pics in the bathroom.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                             <img src="Flip 5.png" alt="Project Beta"> 
+                        </div>
+                        <h3>Me with a Flip 5</h3>
+                        <p>I love to flex and brag about My things. I have taken Pics with Samsung Flip and Iphone 13 Pro. If you have a cool phone i would love to lend it and take pics with it</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                           <img src="old friends.png" alt="Project Gamma">
+                        </div>
+                        <h3>Me With my so called friends </h3>
+                        <p>I am popular so I have a lot of friends but I hardly have a few real friends.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                            <img src="Ch1.png" alt="Project Delta">                    
+                        </div>
+                        <h3>Sneak Peek of Chapter 1 of My book</h3>
+                        <p>This is a Sneak Peek of Chapter 1 of My book. The Name of my book is Killer's Legacy.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                             <img src="at masti zone.png" alt="Project Epsilon">
+                        </div>
+                        <h3>At Masti Zone In Wave Mall</h3>
+                        <p>I went to Masti Zone in Wave Mall with my so called friends. I may be Popular and have friends but i have very few real friends.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                           <img src="another eye.png" alt="Project Zeta">
+                        </div>
+                        <h3>Another Close Up of My eye</h3>
+                        <p>I Love to take fisheye prespective shots of my eyes. I also take Pics in the bathroom.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    
+                                         <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                            <img src="my book.png" alt="Project Delta">                    
+                        </div>
+                        <h3>Sneak peek of my book's first print, snapped on 2 May 2025.</h3>
+                        <p>This is a Sneak Peek of My book. The Name of my book is Killer's Legacy.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                             <img src="Leaked Chat.png" alt="Project Epsilon">
+                        </div>
+                        <h3>Gavin's crush</h3>
+                        <p>I am quite popular so a lot of people have a crush on me. I found one person known as gavin had a huge crush on me and was stalking me from my friend's instagram acoount.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-image-placeholder">
+                           <img src="laptop.png" alt="Project Zeta">
+                        </div>
+                        <h3>My Techstack</h3>
+                        <p>I have a Hp Chromebook and Noise Air max 5 headphones. My parents nor i am that much of a techincal people and my parents bought my chromebook for me. I use google docs for writing.</p>
+                        <a href="#" class="button" target="_blank" rel="noopener noreferrer">View More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="links" class="section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Connect With Me</h2>
+                <div class="links-grid">
+                    <a href="https://www.youtube.com/@Yashikadhingra14" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+</svg>
+                        <h3>Youtube</h3>
+                        <p>@Yashikadhingra14</p>
+                    </a>
+                    <a href="https://www.instagram.com/__vandalized/" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+                        <h3>Instagram</h3>
+                        <p>__vandalized</p>
+                    </a>
+                                        <a href="https://www.instagram.com/__.yaashika/" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+                        <h3>Instagram</h3>
+                        <p>__.yaashika</p>
+                    </a>
+                                        <a href="https://www.instagram.com/itsso_notokayy/" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+                        <h3>Instagram</h3>
+                        <p>itsso_notokayy</p>
+                    </a>
+                                        <a href="https://www.instagram.com/_.write_it/" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+                        <h3>Instagram</h3>
+                        <p>_.write_it</p>
+                    </a>
+                                        <a href="https://open.spotify.com/user/31rlz45sbqltqcuremoc7cth2kq4?si=qWghOYbPTUmJ-Z9HJUK9EQ&fbclid=PAZXh0bgNhZW0CMTEAAadBGSGnZjCcjx1_ovRQ2qdBsSqTrut5fBtzq6UvtJo0kKRHVXbOFn4GaSLusw_aem_-GU8I7DruAQpXeQ2KGdM7Q&nd=1&dlsi=dae287d1203e4a8a" target="_blank" rel="noopener noreferrer" class="link-card animate-on-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
+  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/>
+</svg>
+                        <h3>Spotify</h3>
+                        <p>Echo Plex</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Common Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item animate-on-scroll">
+                        <details>
+                            <summary>How are you and Prableen related?</summary>
+                            <div class="faq-answer">
+                                <p>idk</p>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="faq-item animate-on-scroll">
+                        <details>
+                            <summary>What is your purpose?</summary>
+                            <div class="faq-answer">
+                                <p>idk</p>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="faq-item animate-on-scroll">
+                        <details>
+                            <summary>Are you Gay?</summary>
+                            <div class="faq-answer">
+                                <p>idk</p>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="faq-item animate-on-scroll">
+                        <details>
+                            <summary>Why did you come to BCM School?</summary>
+                            <div class="faq-answer">
+                                <p>idk</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+                <p class="intro-text animate-on-scroll" style="transition-delay: 0.1s;">
+                    Have a question in mind,  or just want to say hi? I'd love to hear from you. Fill out the form below, and I'll get back to you as soon as possible.
+                </p>
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form animate-on-scroll" style="transition-delay: 0.2s;">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE"> 
+                    
+                    <input type="hidden" name="subject" value="New Portfolio Contact Form Submission from [Your Name]">
+                    <input type="hidden" name="from_name" value="Portfolio Contact">
+                    
+                    <input type="text" name="name" placeholder="Your Full Name" required>
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <textarea name="message" placeholder="Your Message..." required></textarea>
+                    
+                    <input type="checkbox" name="botcheck" id="botcheck" style="display: none;">
+
+                    <button type="submit" class="button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>© <span id="currentYear"></span> Yashika Dhingra. All Rights Reserved. </p>
+        <p>Designed & Built with <span style="color: var(--accent-color);">❤</span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mainNav = document.getElementById('mainNav');
+            const navLinksMobile = mainNav.querySelectorAll('a');
+
+            hamburgerMenu.addEventListener('click', () => {
+                const isActive = mainNav.classList.toggle('is-active');
+                hamburgerMenu.classList.toggle('is-active');
+                hamburgerMenu.setAttribute('aria-expanded', isActive);
+                document.body.classList.toggle('mobile-nav-active', isActive);
+            });
+
+            navLinksMobile.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('is-active')) {
+                        mainNav.classList.remove('is-active');
+                        hamburgerMenu.classList.remove('is-active');
+                        hamburgerMenu.setAttribute('aria-expanded', 'false');
+                        document.body.classList.remove('mobile-nav-active');
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.main-nav ul a');
+
+            function changeNavActiveState() {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - (window.innerHeight / 3) ) { 
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                
+                let activeLinkFound = false;
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                        activeLinkFound = true;
+                    }
+                });
+                if (!activeLinkFound && pageYOffset < sections[0].offsetTop - (window.innerHeight / 3)) {
+                    const homeLink = document.querySelector('.main-nav ul a[href="#hero"]');
+                    if (homeLink) homeLink.classList.add('active');
+                } else if (!activeLinkFound && currentSectionId === '') {
+                     const homeLink = document.querySelector('.main-nav ul a[href="#hero"]');
+                     if (homeLink && pageYOffset < (sections[0].offsetTop + sections[0].clientHeight / 2)) {
+                        homeLink.classList.add('active');
+                     }
+                }
+            }
+            changeNavActiveState();
+            window.addEventListener('scroll', changeNavActiveState);
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
